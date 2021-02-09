@@ -12,6 +12,7 @@
   become: yes
   roles:
     - role: k3s/master
+    - role: kubectl
 
 - hosts: node
   become: yes

@@ -5,3 +5,4 @@ systemd_dir: /etc/systemd/system
 master_ip: "{{ hostvars[groups['master'][0]]['192.168.15.9'] | default(groups['master'][0]) }}"
 extra_server_args: ""
 extra_agent_args: ""
+master_in_manager: 1
