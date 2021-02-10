@@ -5,6 +5,7 @@
   become: yes
   roles:
     - role: k3s_configuration/reset
+    - role: management_configuration/reset_telegraf
 
 - hosts: management_services_host
   gather_facts: yes
