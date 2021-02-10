@@ -10,20 +10,20 @@
     name: apt-transport-https
     state: present
   when:
-    ansible_distribution == "Debian" and influxdata_repository.exists != True
+    ansible_distribution == "Debian" and influxdata_repository.stat.exists != True
 
 - name: Add the InfluxData repository key
   apt_key:
     url: https://repos.influxdata.com/influxdb.key
     state: present
-  when: influxdata_repository.exists != True
+  when: influxdata_repository.stat.exists != True
 
 - name: Add InfluxData repository
   apt_repository:
     repo: "deb https://repos.influxdata.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
     filename: "influxdb"
     state: present
-  when: influxdata_repository.exists != True
+  when: influxdata_repository.stat.exists != True
   register: repository_influxdb
 
 - name: Install the influxdb service
