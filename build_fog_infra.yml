@@ -13,20 +13,19 @@
   become: yes
   roles:
     - role: k3s_configuration/k3s/master
-    - role: k3s_configuration/k3s/kubectl
 
 - hosts: k3s_node
   become: yes
   roles:
     - role: k3s_configuration/k3s/node
 
-- hosts: management_services_host
-  become: yes
-  roles:
-    - role: management_configuration/influxdb
-    - role: management_configuration/grafana
+# - hosts: management_services_host
+#   become: yes
+#   roles:
+#     - role: management_configuration/influxdb
+#     - role: management_configuration/grafana
 
-- hosts: manager_interface_host
-  become: yes
-  roles:
-    - role: management_configuration/kubectl
+# - hosts: manager_interface_host
+#   become: yes
+#   roles:
+#     - role: management_configuration/kubectl
