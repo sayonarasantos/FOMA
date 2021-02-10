@@ -1,0 +1,24 @@
+---
+- name: Install apt-transport-https (Debian)
+  apt:
+    name: apt-transport-https
+    state: present
+  when: ansible_distribution == "Debian"
+
+- name: Add the InfluxData repository key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    state: present
+
+- name: Add InfluxData repository
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
+    filename: "influxdb"
+    state: present
+  register: repository_telegraf
+
+- name: Install the Telegraf service
+  apt:
+    name: telegraf
+    update_cache: yes
+  when: repository_telegraf.changed
