@@ -12,7 +12,7 @@
 
 - name: Remove the InfluxData repository key
   apt_key:
-    url: https://repos.influxdata.com/influxdb.key
+    id: 05CE15085FC09D18E99EFB22684A14CF2582E0C5
     state: absent
 
 - name: Remove apt-transport-https
