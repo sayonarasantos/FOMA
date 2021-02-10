@@ -14,3 +14,10 @@ usermod -aG sudo
 ```
 ansible-playbook site.yml -i inventory/cluster1/hosts.ini --ask-become-pass
 ```
+
+---
+- Comandos extras
+```
+ansible 192.168.15.4 -m setup -i inventory/cluster1/hosts.ini > debug.txt
+ansible node -m setup -i inventory/cluster1/hosts.ini | grep buster
+```
