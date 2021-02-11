@@ -1,0 +1,12 @@
+---
+
+- name: Copy grafana.yaml to manager directory
+  copy:
+    src: k3s_manifests/grafana.yaml
+    dest: ~{{ ansible_user }}/k3s_manifests/
+    remote_src: no
+    owner: "{{ ansible_user }}"
+    mode: "u=rw,g=,o="
+
+- name: Deploy Grafana in the k3s cluster
+  command: k3s kubectl create -f ~{{ ansible_user }}/k3s_manifests/grafana.yaml

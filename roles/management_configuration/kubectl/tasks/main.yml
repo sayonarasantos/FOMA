@@ -1,0 +1,49 @@
+---
+
+- name: Install packages that allow apt to be used over HTTPS
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+    - apt-transport-https
+    - curl
+    - gnupg2
+  when: master_in_manager == 0
+
+- name: Add an apt signing key for Kubernetes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+  when: master_in_manager == 0
+
+- name: Adding apt repository for Kubernetes
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+    filename: kubernetes.list
+  when: master_in_manager == 0
+
+- name: Install kubectl
+  apt: 
+    name: kubectl
+    state: present
+    update_cache: yes
+  when: master_in_manager == 0
+
+- name: Create manifest directory
+  file:
+    path: ~{{ ansible_user }}/k3s_manifests
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: "u=rwx,g=rx,o="
+
+- name: Copy .kube from k3s master
+  copy:
+    src: ~{{ ansible_user }}/.kube
+    dest: ~{{ ansible_user }}/
+    remote_src: no
+    owner: "{{ ansible_user }}"
+    mode: "u=rw,g=,o="
+  when: master_in_manager == 0
