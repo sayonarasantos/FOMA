@@ -12,7 +12,7 @@ master_in_manager: 1 # 1: write config mode with 644, 0: write config mode defau
 
 
 # influxdb
-management_ip: "{{ hostvars[groups['management_services_host'][0]]['ansible_host'] }}"
+management_ip: "{{ hostvars[groups['management_services_host'][0]]['ansible_host'] | default(groups['management_services_host'][0]) }}"
 influxdb_port: 8086
 influxdb_admin_user: admin
 influxdb_admin_password: tcciot
