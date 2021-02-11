@@ -6,8 +6,8 @@ systemd_dir: /etc/systemd/system
 extra_server_args: ""
 extra_agent_args: ""
 k3s_version: v1.20.2+k3s1
-ansible_user: sayonara
-master_in_manager: 1 # 1: write config mode with 644, 0: write config mode default
+ansible_user: sayonara # manager user
+master_in_manager: 1 # 1: instal k3s with write_config_mode=644, 0: install kubectl on manager machine
 
 
 

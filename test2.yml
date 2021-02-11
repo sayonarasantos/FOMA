@@ -1,6 +1,6 @@
 ---
 
-- hosts: manager_interface_host
+- hosts: management_interface_host
   gather_facts: yes
   become: yes
   roles:

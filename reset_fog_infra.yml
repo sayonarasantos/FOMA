@@ -11,10 +11,10 @@
   gather_facts: yes
   become: yes
   roles:
-    - role: management_configuration/reset_management_services
+    - role: management_configuration/reset_influxdb
 
-- hosts: manager_interface_host
+- hosts: management_interface_host
   gather_facts: yes
   become: yes
   roles:
-    - role: management_configuration/reset_manager_interface
+    - role: management_configuration/reset_kubectl
