@@ -26,14 +26,14 @@
   # when: influxdata_repository.stat.exists != True
   register: repository_influxdb
 
-- name: Install the influxdb service
+- name: Install the influxdb
   apt:
     name: influxdb
     update_cache: yes
   when: repository_influxdb.changed
 
-- name: Start Telegraf
+- name: Start influxdb
   service:
-    name: telegraf
+    name: influxdb
     state: restarted
     enabled: yes
