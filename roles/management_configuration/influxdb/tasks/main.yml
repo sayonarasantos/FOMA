@@ -48,9 +48,11 @@
 
 - name: Influxdb - Create user admin
   command: influx -execute "CREATE USER {{ influxdb_admin_user }} WITH PASSWORD '{{ influxdb_admin_password }}' WITH ALL PRIVILEGES"
+  when: install_influxdb.changed 
 
 - name: Influxdb - Create telegraf db
   command: influx -execute "CREATE DATABASE {{ influxdb_db }}"
+  when: install_influxdb.changed
 
 - name: Influxdb - Show databases
   command: influx -execute "SHOW DATABASES"
@@ -62,6 +64,7 @@
 
 - name: Influxdb - Create telegraf user
   command: influx -execute "CREATE USER {{ influxdb_user }} WITH PASSWORD '{{ influxdb_password }}' WITH ALL PRIVILEGES"
+  when: install_influxdb.changed
 
 - name: Influxdb - Show users
   command: influx -execute "SHOW USERS"
@@ -73,3 +76,4 @@
 
 - name: Influxdb - Grant privileges on telegraf db to telegraf user
   command: influx -execute "GRANT ALL PRIVILEGES ON {{ influxdb_db }} TO {{ influxdb_user }}"
+  when: install_influxdb.changed
