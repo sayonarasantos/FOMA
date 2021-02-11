@@ -1,4 +1,9 @@
 ---
+- name: Change the telegraf.config to the defaulf file #extra
+  copy:
+    src: /etc/telegraf/telegraf.conf.sample
+    dest: /etc/telegraf/telegraf.conf
+    force: yes
 
 - name: Remove Telegraf
   apt:
