@@ -41,9 +41,9 @@
   when: install_influxdb.changed
   register: start_influxdb
 
-- name: Pause for 4 minutes to start influxdb
+- name: Pause for 2 minutes to start influxdb
   pause:
-    minutes: '4'
+    minutes: '2'
   when: start_influxdb.changed
 
 - name: Influxdb - Create user admin
@@ -58,10 +58,10 @@
 
 - name: Debug - Print databases
   debug:
-    var: stdout
+    var: output
 
 - name: Influxdb - Create telegraf user
-  command: influx -execute "CREATE USER {{ influxdb_user }} WITH PASSWORD {{ influxdb_password }} WITH ALL PRIVILEGES"
+  command: influx -execute "CREATE USER {{ influxdb_user }} WITH PASSWORD '{{ influxdb_password }}' WITH ALL PRIVILEGES"
 
 - name: Influxdb - Show users
   command: influx -execute "SHOW USERS"
@@ -69,7 +69,7 @@
 
 - name: Debug - Print db users
   debug:
-    var: stdout
+    var: output
 
 - name: Influxdb - Grant privileges on telegraf db to telegraf user
   command: influx -execute "GRANT ALL PRIVILEGES ON {{ influxdb_db }} TO {{ influxdb_user }}"
