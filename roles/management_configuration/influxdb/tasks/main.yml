@@ -31,12 +31,20 @@
     name: influxdb
     update_cache: yes
   when: repository_influxdb.changed
+  register: install_influxdb
 
 - name: Start influxdb
   service:
     name: influxdb
     state: restarted
     enabled: yes
+  when: install_influxdb.changed
+  register: start_influxdb
+
+- name: Pause for 4 minutes to start influxdb
+  pause:
+    minutes: '4'
+  when: start_influxdb.changed
 
 - name: Influxdb - Create user admin
   command: /opt/influxdb/influx -execute "CREATE USER {{ influxdb_admin_user }} WITH PASSWORD '{{ influxdb_admin_password }}' WITH ALL PRIVILEGES"
