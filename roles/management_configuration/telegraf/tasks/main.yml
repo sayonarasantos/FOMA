@@ -1,4 +1,5 @@
 ---
+
 - name: Install apt-transport-https (Debian)
   apt:
     name: apt-transport-https
@@ -17,8 +18,14 @@
     state: present
   register: repository_telegraf
 
-- name: Install the Telegraf service
+- name: Install the Telegraf
   apt:
     name: telegraf
     update_cache: yes
   when: repository_telegraf.changed
+
+- name: Start Telegraf
+  service:
+    name: telegraf
+    state: restarted
+    enabled: yes

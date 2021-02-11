@@ -31,3 +31,9 @@
     name: influxdb
     update_cache: yes
   when: repository_influxdb.changed
+
+- name: Start Telegraf
+  service:
+    name: telegraf
+    state: restarted
+    enabled: yes

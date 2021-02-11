@@ -1,4 +1,5 @@
 ---
+
 - name: Remove Telegraf
   apt:
     name: telegraf
