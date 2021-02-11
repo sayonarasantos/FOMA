@@ -47,22 +47,29 @@
   when: start_influxdb.changed
 
 - name: Influxdb - Create user admin
-  command: /opt/influxdb/influx -execute "CREATE USER {{ influxdb_admin_user }} WITH PASSWORD '{{ influxdb_admin_password }}' WITH ALL PRIVILEGES"
-
-- name: Influxdb - Show users
-  command: /opt/influxdb/influx -execute "SHOW USERS"
+  command: influx -execute "CREATE USER {{ influxdb_admin_user }} WITH PASSWORD '{{ influxdb_admin_password }}' WITH ALL PRIVILEGES"
 
 - name: Influxdb - Create telegraf db
-  command: /opt/influxdb/influx -execute "CREATE DATABASE {{ influxdb_db }}"
+  command: influx -execute "CREATE DATABASE {{ influxdb_db }}"
 
 - name: Influxdb - Show databases
-  command: /opt/influxdb/influx -execute "SHOW DATABASES"
+  command: influx -execute "SHOW DATABASES"
+  register: output
+
+- name: Debug - Print databases
+  debug:
+    var: stdout
 
 - name: Influxdb - Create telegraf user
-  command: /opt/influxdb/influx -execute "CREATE USER {{ influxdb_user }} WITH PASSWORD {{ influxdb_password }} WITH ALL PRIVILEGES"
+  command: influx -execute "CREATE USER {{ influxdb_user }} WITH PASSWORD {{ influxdb_password }} WITH ALL PRIVILEGES"
 
-- name: Influxdb - Show users (2)
-  command: /opt/influxdb/influx -execute "SHOW USERS"
+- name: Influxdb - Show users
+  command: influx -execute "SHOW USERS"
+  register: output
+
+- name: Debug - Print db users
+  debug:
+    var: stdout
 
 - name: Influxdb - Grant privileges on telegraf db to telegraf user
-  command: /opt/influxdb/influx -execute "GRANT ALL PRIVILEGES ON {{ influxdb_db }} TO {{ influxdb_user }}"
+  command: influx -execute "GRANT ALL PRIVILEGES ON {{ influxdb_db }} TO {{ influxdb_user }}"
