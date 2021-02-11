@@ -23,6 +23,21 @@
     name: telegraf
     update_cache: yes
   when: repository_telegraf.changed
+  register: install_telegraf
+
+- name: Update telegraf.conf with influxdb settings
+  ini_file:
+    path: /etc/telegraf/telegraf.conf
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    state: "{{ item.state }}"
+  loop:
+    - { section: '[outputs.influxdb]', option: 'urls', value: '["https://{{ management_ip }}:{{ influxdb_port }}"]', state: 'present' }
+    - { section: '[outputs.influxdb]', option: 'database', value: '"{{ influxdb_db }}"', state: 'present' }
+    - { section: '[outputs.influxdb]', option: 'username', value: '"{{ influxdb_user }}"', state: 'present' }
+    - { section: '[outputs.influxdb]', option: 'password', value: '"{{ influxdb_password }}"', state: 'present' }
+  when: install_telegraf.changed
 
 - name: Start Telegraf
   service:

@@ -1,8 +1,21 @@
 ---
-k3s_version: v1.20.2+k3s1
-ansible_user: sayonara
+
+# k3s
+master_ip: "{{ hostvars[groups['k3s_master'][0]]['ansible_host'] | default(groups['k3s_master'][0]) }}"
 systemd_dir: /etc/systemd/system
-master_ip: "{{ hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0]) }}"
 extra_server_args: ""
 extra_agent_args: ""
-master_in_manager: 1
+k3s_version: v1.20.2+k3s1
+ansible_user: sayonara
+master_in_manager: 1 # 1: write config mode with 644, 0: write config mode default
+
+
+
+# influxdb
+management_ip: "{{ hostvars[groups['management_services_host'][0]]['ansible_host'] }}"
+influxdb_port: 8086
+influxdb_admin_user: admin
+influxdb_admin_password: tcciot
+influxdb_db: telegraf
+influxdb_user: telegraf
+influxdb_password: tcciot
