@@ -37,3 +37,24 @@
     name: influxdb
     state: restarted
     enabled: yes
+
+- name: Influxdb - Create user admin
+  command: /opt/influxdb/influx -execute "CREATE USER {{ influxdb_admin_user }} WITH PASSWORD '{{ influxdb_admin_password }}' WITH ALL PRIVILEGES"
+
+- name: Influxdb - Show users
+  command: /opt/influxdb/influx -execute "SHOW USERS"
+
+- name: Influxdb - Create telegraf db
+  command: /opt/influxdb/influx -execute "CREATE DATABASE {{ influxdb_db }}"
+
+- name: Influxdb - Show databases
+  command: /opt/influxdb/influx -execute "SHOW DATABASES"
+
+- name: Influxdb - Create telegraf user
+  command: /opt/influxdb/influx -execute "CREATE USER {{ influxdb_user }} WITH PASSWORD {{ influxdb_password }} WITH ALL PRIVILEGES"
+
+- name: Influxdb - Show users (2)
+  command: /opt/influxdb/influx -execute "SHOW USERS"
+
+- name: Influxdb - Grant privileges on telegraf db to telegraf user
+  command: /opt/influxdb/influx -execute "GRANT ALL PRIVILEGES ON {{ influxdb_db }} TO {{ influxdb_user }}"
