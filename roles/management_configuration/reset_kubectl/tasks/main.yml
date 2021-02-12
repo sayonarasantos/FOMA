@@ -1,0 +1,52 @@
+---
+
+- name: Remove manifest directory
+  file:
+    path: ~{{ ansible_user }}/k3s_manifests
+    state: absent
+
+- name: Remove .kube
+  file:
+    path: ~{{ ansible_user }}/.kube
+    state: absent
+  when: master_on_manager_machine == 0
+
+- name: Remove kubectl
+  apt: 
+    name: kubectl
+    state: absent
+  when: master_on_manager_machine == 0
+
+- name: Remove apt repository for Kubernetes
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: absent
+    filename: kubernetes.list
+  when: master_on_manager_machine == 0
+
+# - name: Remove an apt signing key for Kubernetes
+#   apt_key:
+#     id: ??
+#     state: absent
+#   when: master_on_manager_machine == 0
+
+- name: Remove packages that allow apt to be used over HTTPS
+  apt:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+    - apt-transport-https
+    - curl
+    - gnupg2
+  when: master_on_manager_machine == 0
+
+
+
+
+
+
+
+
+
+

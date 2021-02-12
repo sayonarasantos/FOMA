@@ -1,6 +1,6 @@
 ---
 
-- name: Change the telegraf.config to the defaulf file #extra
+- name: Change the telegraf.config to the defaulf file
   copy:
     src: /etc/telegraf/telegraf.conf.sample
     dest: /etc/telegraf/telegraf.conf

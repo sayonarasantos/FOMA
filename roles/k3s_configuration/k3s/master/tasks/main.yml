@@ -50,7 +50,6 @@
     state: directory
     owner: "{{ ansible_user }}"
     mode: "u=rwx,g=rx,o="
-  when: master_on_manager_machine == 0
 
 - name: Copy config file to user home directory
   copy:
@@ -59,7 +58,6 @@
     remote_src: yes
     owner: "{{ ansible_user }}"
     mode: "u=rw,g=,o="
-  when: master_on_manager_machine == 0
 
 - name: Replace https://localhost:6443 by https://master-ip:6443
   command: >-
@@ -67,21 +65,18 @@
       --server=https://{{ master_ip }}:6443
       --kubeconfig ~{{ ansible_user }}/.kube/config
   changed_when: true
-  when: master_on_manager_machine == 0
 
 - name: Create kubectl symlink
   file:
     src: /usr/local/bin/k3s
     dest: /usr/local/bin/kubectl
     state: link
-  when: master_on_manager_machine == 0
 
 - name: Create crictl symlink
   file:
     src: /usr/local/bin/k3s
     dest: /usr/local/bin/crictl
     state: link
-  when: master_on_manager_machine == 0
 
 - name: Change k3s.yaml permissions
   file:
