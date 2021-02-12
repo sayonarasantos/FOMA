@@ -24,10 +24,12 @@
   become: yes
   roles:
     - role: management_configuration/influxdb
+    # - role: management_configuration/grafana # on host
 
-- hosts: management_interface_host
+- hosts: manager_machine
   gather_facts: yes
   become: yes
   roles:
     - role: management_configuration/kubectl
-    - role: management_configuration/grafana
+    - role: management_configuration/grafana # on k3s
+    - role: management_configuration/webui # on k3s

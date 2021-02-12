@@ -13,7 +13,7 @@
   roles:
     - role: management_configuration/reset_influxdb
 
-- hosts: management_interface_host
+- hosts: manager_machine
   gather_facts: yes
   become: yes
   roles:

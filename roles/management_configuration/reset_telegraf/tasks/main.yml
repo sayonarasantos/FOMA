@@ -1,4 +1,5 @@
 ---
+
 - name: Change the telegraf.config to the defaulf file #extra
   copy:
     src: /etc/telegraf/telegraf.conf.sample
