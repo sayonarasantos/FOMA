@@ -26,4 +26,3 @@
         user: "{{ new_user }}"
         state: present
         key: "{{ lookup('file', 'id_rsa.pub') }}"
-        key_options:
