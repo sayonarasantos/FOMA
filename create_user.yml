@@ -1,0 +1,29 @@
+---
+
+- name: Configure ansible_user
+  hosts: all_hosts
+  vars:
+    new_user: ansibleadmin
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: Create new user
+      user:
+        name: "{{ new_user }}"
+        append: yes
+        state: present
+        createhome: yes
+        shell: /bin/bash
+
+    - name: allow user to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        line: "{{ new_user }} ALL=(ALL) NOPASSWD: ALL"
+        validate: "visudo -cf %s"
+
+    - name: Add user pub key in authorized_keys
+      authorized_key:
+        user: "{{ new_user }}"
+        state: present
+        key: "{{ lookup('file', 'id_rsa.pub') }}"
+        key_options:
