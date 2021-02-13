@@ -1,8 +1,0 @@
----
-
-- hosts: manager_machine
-  gather_facts: yes
-  become: yes
-  roles:
-    - role: management_configuration/kubectl
-    - role: management_configuration/grafana

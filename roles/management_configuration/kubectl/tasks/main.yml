@@ -31,6 +31,7 @@
     state: present
     update_cache: yes
   when: master_on_manager_machine == 0
+  register: install_kubectl
 
 - name: Create directory .kube
   file:
@@ -54,3 +55,8 @@
     state: directory
     owner: "{{ ansible_user }}"
     mode: "u=rwx,g=rx,o="
+
+- name: Pause for 2 minutes to start kubectl
+  pause:
+    minutes: '2'
+  when: install_kubectl.changed

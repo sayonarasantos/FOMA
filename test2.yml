@@ -1,7 +1,0 @@
----
-
-- hosts: manager_machine
-  gather_facts: yes
-  become: yes
-  roles:
-    - role: management_configuration/reset_kubectl

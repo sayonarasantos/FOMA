@@ -24,21 +24,21 @@
     filename: "influxdb"
     state: present
   # when: influxdata_repository.stat.exists != True
-  register: repository_influxdb
+  # register: repository_influxdb
 
 - name: Install the influxdb
   apt:
     name: influxdb
     update_cache: yes
-  when: repository_influxdb.changed
-  register: install_influxdb
+  # when: repository_influxdb.changed
+  # register: install_influxdb
 
 - name: Start influxdb
   service:
     name: influxdb
     state: restarted
     enabled: yes
-  when: install_influxdb.changed
+  # when: install_influxdb.changed
   register: start_influxdb
 
 - name: Pause for 2 minutes to start influxdb
@@ -48,11 +48,11 @@
 
 - name: Influxdb - Create user admin
   command: influx -execute "CREATE USER {{ influxdb_admin_user }} WITH PASSWORD '{{ influxdb_admin_password }}' WITH ALL PRIVILEGES"
-  when: install_influxdb.changed 
+  # when: install_influxdb.changed 
 
 - name: Influxdb - Create telegraf db
   command: influx -execute "CREATE DATABASE {{ influxdb_db }}"
-  when: install_influxdb.changed
+  # when: install_influxdb.changed
 
 - name: Influxdb - Show databases
   command: influx -execute "SHOW DATABASES"
@@ -64,7 +64,7 @@
 
 - name: Influxdb - Create telegraf user
   command: influx -execute "CREATE USER {{ influxdb_user }} WITH PASSWORD '{{ influxdb_password }}' WITH ALL PRIVILEGES"
-  when: install_influxdb.changed
+  # when: install_influxdb.changed
 
 - name: Influxdb - Show users
   command: influx -execute "SHOW USERS"
@@ -76,4 +76,4 @@
 
 - name: Influxdb - Grant privileges on telegraf db to telegraf user
   command: influx -execute "GRANT ALL PRIVILEGES ON {{ influxdb_db }} TO {{ influxdb_user }}"
-  when: install_influxdb.changed
+  # when: install_influxdb.changed
