@@ -19,7 +19,7 @@ ansible-playbook build_management.yml -i inventory/cluster1/hosts.ini
 ---
 - Comandos extras
 ```
-ansible-playbook create_user.yml -i inventory/cluster/hosts.ini --user sayonara --ask-become-pass
+ansible-playbook create_user.yml --user sayonara --ask-become-pass
 ansible 192.168.15.4 -m setup -i inventory/cluster1/hosts.ini > debug.txt
-ansible node -m setup -i inventory/cluster1/hosts.ini | grep buster
+ansible k3s_node -m setup -i inventory/cluster1/hosts.ini | grep buster
 ```
