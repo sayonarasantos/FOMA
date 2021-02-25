@@ -8,7 +8,7 @@ sudo adduser cdmin
 usermod -aG sudo cdmin
 ```
 
-- Alterar os hostnames ou ips em inventory/cluster1/hosts.ini
+- Alterar os ips em inventory/cluster1/hosts.ini
 
 - Alterar o hostname ou ip do ansible e o usuário em inventory/cluster1/group_vars/all.yml
 
