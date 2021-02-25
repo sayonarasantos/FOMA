@@ -1,9 +1,9 @@
 ---
 
-- name: Configure ansible_user
+- name: Configure cadmin
   hosts: all_hosts
   vars:
-    new_user: ansibleadmin
+    new_user: cadmin
   gather_facts: yes
   become: yes
   tasks:

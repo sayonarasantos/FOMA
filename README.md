@@ -1,9 +1,9 @@
 # tcc-automation
 
-- Criar usuário com permissão de sudo com a mesma senha no master e no node:
+- Criar usuário com permissão de sudo com a mesma senha nos nós:
 ```
-adduser cdmin
-usermod -aG sudo
+sudo adduser cdmin
+usermod -aG sudo cdmin
 ```
 
 - Alterar os hostnames ou ips em inventory/cluster1/hosts.ini
