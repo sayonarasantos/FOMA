@@ -1,14 +1,19 @@
 ---
 
-- name: Change the telegraf.config to the defaulf file
-  copy:
-    src: /etc/telegraf/telegraf.conf.sample
-    dest: /etc/telegraf/telegraf.conf
-    force: yes
+# - name: Change the telegraf.config to the defaulf file
+#   copy:
+#     src: /etc/telegraf/telegraf.conf.sample
+#     dest: /etc/telegraf/telegraf.conf
+#     force: yes
 
 - name: Remove Telegraf
   apt:
     name: telegraf
+    state: absent
+
+- name: Remove telegraf.conf
+  file:
+    path: /etc/telegraf/telegraf.conf
     state: absent
 
 - name: Remove InfluxData repository
