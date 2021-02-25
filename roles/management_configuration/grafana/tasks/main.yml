@@ -8,7 +8,7 @@
     owner: "{{ ansible_user }}"
     mode: "u=rw,g=,o="
 
-- name: Pause for 2 minutes
+- name: Pause for 20 sec
   pause:
     seconds: '20'
 

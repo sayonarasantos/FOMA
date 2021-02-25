@@ -56,7 +56,7 @@
     owner: "{{ ansible_user }}"
     mode: "u=rwx,g=rx,o="
 
-- name: Pause for 2 minutes to start kubectl
+- name: Pause for 1 minute to start kubectl
   pause:
-    minutes: '2'
+    minutes: '1'
   when: install_kubectl.changed

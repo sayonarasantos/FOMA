@@ -41,7 +41,7 @@
   # when: install_influxdb.changed
   register: start_influxdb
 
-- name: Pause for 2 minutes to start influxdb
+- name: Pause for 1 minute to start influxdb
   pause:
     minutes: '1'
   when: start_influxdb.changed
