@@ -8,7 +8,7 @@ extra_agent_args: ""
 k3s_version: v1.20.2+k3s1
 ansible_user: cdmin # manager user
 master_on_manager_machine: 1 # 1: instal k3s with write_config_mode=644, 0: install kubectl on manager machine
-
+ansible_become_password: ''
 
 
 # influxdb
