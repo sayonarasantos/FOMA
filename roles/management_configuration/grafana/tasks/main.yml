@@ -9,4 +9,4 @@
     mode: "u=rw,g=,o="
 
 - name: Deploy Grafana in the k3s cluster
-  command: k3s kubectl create -f ~{{ ansible_user }}/k3s_manifests/grafana.yaml
+  command: kubectl create -f ~{{ ansible_user }}/k3s_manifests/grafana.yaml
