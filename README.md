@@ -1,5 +1,7 @@
 # tcc-automation
 
+-Versã0 do Ansible: 2.9
+
 - Criar usuário com permissão de sudo com a mesma senha nos nós:
 ```
 sudo adduser cdmin
