@@ -8,9 +8,7 @@
     owner: "{{ ansible_user }}"
     mode: "u=rw,g=,o="
 
-- name: Pause for 20 sec
-  pause:
-    seconds: '20'
-
 - name: Deploy Grafana in the k3s cluster
   command: kubectl create -f ~{{ ansible_user }}/k3s_manifests/grafana.yaml
+  become: yes
+  become_user: "{{ ansible_user }}"

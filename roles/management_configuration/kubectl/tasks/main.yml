@@ -41,12 +41,21 @@
     mode: "u=rwx,g=rx,o="
   when: master_on_manager_machine == 0
 
-- name: Copy config file from k3s_master to manager_machine
-  synchronize:
-    src: /etc/rancher/k3s/k3s.yaml
+# - name: Copy config file from k3s_master to manager_machine
+#   synchronize:
+#     src: /etc/rancher/k3s/k3s.yaml
+#     dest: ~{{ ansible_user }}/.kube/config
+#     mode: pull
+#   delegate_to: "{{ master_ip }}"
+#   when: master_on_manager_machine == 0
+
+- name: Copy the file from manager
+  copy:
+    src: tmp/config
     dest: ~{{ ansible_user }}/.kube/config
-    mode: pull
-  delegate_to: "{{ master_ip }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0644
   when: master_on_manager_machine == 0
 
 - name: Create manifest directory
@@ -55,8 +64,3 @@
     state: directory
     owner: "{{ ansible_user }}"
     mode: "u=rwx,g=rx,o="
-
-- name: Pause for 1 minute to start kubectl
-  pause:
-    minutes: '1'
-  when: install_kubectl.changed

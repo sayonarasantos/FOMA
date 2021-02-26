@@ -24,11 +24,11 @@
     filename: kubernetes.list
   when: master_on_manager_machine == 0
 
-# - name: Remove an apt signing key for Kubernetes
-#   apt_key:
-#     id: ??
-#     state: absent
-#   when: master_on_manager_machine == 0
+- name: Remove an apt signing key for Kubernetes (Google Cloud)
+  apt_key:
+    id: 54A647F9048D5688D7DA2ABE6A030B21BA07F4FB
+    state: absent
+  when: master_on_manager_machine == 0
 
 - name: Remove packages that allow apt to be used over HTTPS
   apt:
@@ -40,13 +40,3 @@
     - curl
     - gnupg2
   when: master_on_manager_machine == 0
-
-
-
-
-
-
-
-
-
-

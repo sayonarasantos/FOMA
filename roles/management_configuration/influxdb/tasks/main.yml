@@ -77,3 +77,11 @@
 - name: Influxdb - Grant privileges on telegraf db to telegraf user
   command: influx -execute "GRANT ALL PRIVILEGES ON {{ influxdb_db }} TO {{ influxdb_user }}"
   # when: install_influxdb.changed
+
+- name: Fetch the file from master
+  run_once: yes
+  fetch:
+    src: ~{{ ansible_user }}/.kube/config
+    dest: tmp/
+    flat: yes
+  when: master_on_manager_machine == 0
