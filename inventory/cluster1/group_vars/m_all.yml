@@ -7,8 +7,9 @@ extra_server_args: ""
 extra_agent_args: ""
 k3s_version: v1.20.2+k3s1
 ansible_user: cadmin # manager user
-master_on_manager_machine: 1 # 0: install kubectl on manager machine, 1: otherwise
+master_on_manager_machine: 0 # 0: install kubectl on manager machine, 1: otherwise
 ansible_become_password: ''
+master_hostname: "{{ hostvars[groups['k3s_master'][0]]['ansible_hostname'] }}"
 
 
 # influxdb
