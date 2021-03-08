@@ -39,49 +39,49 @@
     state: restarted
     enabled: yes
   # when: install_influxdb.changed
-  register: start_influxdb
+  # register: start_influxdb
 
-- name: Pause for 1 minute to start influxdb
-  pause:
-    minutes: '1'
-  when: start_influxdb.changed
+# - name: Pause for 1 minute to start influxdb
+#   pause:
+#     seconds: '30'
+#   when: start_influxdb.changed
 
-- name: Influxdb - Create user admin
-  command: influx -execute "CREATE USER {{ influxdb_admin_user }} WITH PASSWORD '{{ influxdb_admin_password }}' WITH ALL PRIVILEGES"
-  # when: install_influxdb.changed 
+# - name: Influxdb - Create user admin
+#   command: influx -execute "CREATE USER {{ influxdb_admin_user }} WITH PASSWORD '{{ influxdb_admin_password }}' WITH ALL PRIVILEGES"
+#   # when: install_influxdb.changed 
 
-- name: Influxdb - Create telegraf db
-  command: influx -execute "CREATE DATABASE {{ influxdb_db }}"
-  # when: install_influxdb.changed
+# - name: Influxdb - Create telegraf db
+#   command: influx -execute "CREATE DATABASE {{ influxdb_db }}"
+#   # when: install_influxdb.changed
 
-- name: Influxdb - Show databases
-  command: influx -execute "SHOW DATABASES"
-  register: output
+# - name: Influxdb - Show databases
+#   command: influx -execute "SHOW DATABASES"
+#   register: output
 
-- name: Debug - Print databases
-  debug:
-    var: output
+# - name: Debug - Print databases
+#   debug:
+#     var: output
 
-- name: Influxdb - Create telegraf user
-  command: influx -execute "CREATE USER {{ influxdb_user }} WITH PASSWORD '{{ influxdb_password }}' WITH ALL PRIVILEGES"
-  # when: install_influxdb.changed
+# - name: Influxdb - Create telegraf user
+#   command: influx -execute "CREATE USER {{ influxdb_user }} WITH PASSWORD '{{ influxdb_password }}' WITH ALL PRIVILEGES"
+#   # when: install_influxdb.changed
 
-- name: Influxdb - Show users
-  command: influx -execute "SHOW USERS"
-  register: output
+# - name: Influxdb - Show users
+#   command: influx -execute "SHOW USERS"
+#   register: output
 
-- name: Debug - Print db users
-  debug:
-    var: output
+# - name: Debug - Print db users
+#   debug:
+#     var: output
 
-- name: Influxdb - Grant privileges on telegraf db to telegraf user
-  command: influx -execute "GRANT ALL PRIVILEGES ON {{ influxdb_db }} TO {{ influxdb_user }}"
-  # when: install_influxdb.changed
+# - name: Influxdb - Grant privileges on telegraf db to telegraf user
+#   command: influx -execute "GRANT ALL PRIVILEGES ON {{ influxdb_db }} TO {{ influxdb_user }}"
+#   # when: install_influxdb.changed
 
-- name: Fetch the file from master
-  run_once: yes
-  fetch:
-    src: ~{{ ansible_user }}/.kube/config
-    dest: tmp/
-    flat: yes
-  when: master_on_manager_machine == 0
+# - name: Fetch the file from master
+#   run_once: yes
+#   fetch:
+#     src: ~{{ ansible_user }}/.kube/config
+#     dest: tmp/
+#     flat: yes
+#   when: master_on_manager_machine == 0

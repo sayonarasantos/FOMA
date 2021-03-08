@@ -5,7 +5,7 @@
   become: yes
   roles:
     - role: management_configuration/influxdb
-    # - role: management_configuration/grafana # on host
+    - role: management_configuration/kubeconfig
 
 - hosts: manager_machine
   gather_facts: yes
@@ -13,4 +13,8 @@
   roles:
     - role: management_configuration/kubectl
     - role: management_configuration/grafana # on k3s
-    # - role: management_configuration/webui # on k3s
+
+- hosts: k3s_master
+  become: yes
+  roles:
+    - role: management_configuration/telegrafdb

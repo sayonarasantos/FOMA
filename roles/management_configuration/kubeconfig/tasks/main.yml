@@ -1,0 +1,9 @@
+---
+
+- name: Fetch the file from master
+  run_once: yes
+  fetch:
+    src: ~{{ ansible_user }}/.kube/config
+    dest: tmp/
+    flat: yes
+  when: master_on_manager_machine == 0
