@@ -1,4 +1,10 @@
-# tcc-automation
+# FOMA - Framework de Orquestração, Monitoramento e Automatização de ambiente de Névoa
+Autora: Sayonara Santos Araújo
+
+Descrição: O FOMA é um framework para ambientes de Névoa, que permite a orquestração de serviços, o monitoramento de recursos e a implantação automatizada das ferramentas da infraestrutura. O framework é composto pelas ferramentas:
+- K3s e kubectl para a orquestração de contêiner
+- TIG (Telegraf, InfluxDB e Grafana) para o monitoramento das máquinas
+- Ansible para a implantação automatizada das ferramentas de orquestração e monitoramento
 
 ## Pré-requisitos
 - Versão do Ansible: 2.9
@@ -6,18 +12,20 @@
 - Usuário com permissão de sudo, mesma senha nos nós e acesso via chave SSH nas máquinas
 
 ## Configuração das variáveis
-- Criar um arquivo inventory/cluster1/hosts.ini, copiando o arquivo inventory/cluster1/m_hosts.ini
-- Alterar os ips em inventory/cluster1/hosts.ini
-- Criar um arquivo inventory/cluster1/group_vars/all.yml, compiando o arquivo inventory/cluster1/group_vars/m_all.yml
-- Alterar as variáveis necessárias em inventory/cluster1/group_vars/all.yml, como:
-    - k3s_version: versão do K3s,
+Antes de executar os playbooks, é necessário configurar as variáveis do inventário, seguindos os passos:
+- Criar um arquivo `inventory/cluster1/hosts.ini`, copiando o arquivo `inventory/cluster1/m_hosts.ini`
+- Alterar os ips em `inventory/cluster1/hosts.ini`
+- Criar um arquivo `inventory/cluster1/group_vars/all.yml`, compiando o arquivo `inventory/cluster1/group_vars/m_all.yml`
+- Alterar as variáveis necessárias em `inventory/cluster1/group_vars/all.yml`, como:
     - ansible_user: usuário ansible de acesso,
-    - master_on_manager_machine: parâmetro para confirmar a configuração de acesso remoto ao cluster K3s
     - ansible_become_password: senha do usuário ansible de acesso
-    - influxdb_*: configurações do banco de dados 
+    - ansible_ssh_pass: senha da chave ssh
+    - k3s_version: versão do K3s,
+    - master_on_manager_machine: parâmetro para confirmar a configuração de acesso remoto ao cluster K3s
+    - influxdb_*: configurações do banco de dados
 
 ## Execução dos playbooks
-- Na maquina do ansible, executar o seguinte comando e digitar a senha do usuário nas máquinas:
+Feita a configuração das variáveis, pode-se executar os playbooks de construção do cluster K3s e implantação do TIG e do kubectl, respectivamente:
 ```
 ansible-playbook build_k3s.yml -i inventory/cluster1/hosts.ini
 ansible-playbook build_management.yml -i inventory/cluster1/hosts.ini
@@ -30,19 +38,8 @@ ansible-playbook build_management.yml -i inventory/cluster1/hosts.ini
 
 ## Comandos extras
 
-- Em cada máquina, criar usuário com permissão de sudo e mesma senha nos nós:
+- Verificar informações das máquinas (exemplos)
 ```
-sudo adduser cdmin
-usermod -aG sudo cdmin
-```
-
-- Verificar informações das máquinas
-```
-ansible 192.168.15.4 -m setup -i inventory/cluster1/hosts.ini > debug.txt
+ansible 192.168.15.2 -m setup -i inventory/cluster1/hosts.ini > debug.txt
 ansible k3s_node -m setup -i inventory/cluster1/hosts.ini | grep buster
-```
-
-- Criar um novo usuário
-```
-ansible-playbook create_user.yml --user <usuário remoto> --ask-become-pass
 ```
