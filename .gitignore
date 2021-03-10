@@ -1,3 +1,4 @@
 **/hosts.ini
 **/group_vars/all.yml
 tmp/
+tests/
