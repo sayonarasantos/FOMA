@@ -31,8 +31,14 @@ ansible-playbook build_k3s.yml -i inventory/cluster1/hosts.ini
 ansible-playbook build_management.yml -i inventory/cluster1/hosts.ini
 ```
 
-
-
+## Recursos disponibilidados pelo FOMA após a implantação
+Após a implantação, você terá:
+- O cluster K3s instalado e configurado em todos os nós (`k3s_node`)
+- O kubectl instado e configurado para gerenciar o cluster remotamente, a partir da máquina `manager_machine`
+- O InfluxDB instalado e configurado com dois usuário (um administrador e outro para o Telegraf) na máquina `management_services_host`
+- O banco de dados do Telegraf criado no InfluxDB
+- O Telegraf instalado nos nós e configurado com as informações do banco
+- o Grafana instalado na máquina `management_services_host` e disponível em http://<ip da management_services_host>:3000
 
 ---
 
