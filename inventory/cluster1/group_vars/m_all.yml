@@ -1,16 +1,19 @@
 ---
 
+# ansible access
+ansible_user: cadmin # manager user
+ansible_become_password: ''
+ansible_connection: ssh
+ansible_ssh_pass: ''
+
 # k3s
 master_ip: "{{ hostvars[groups['k3s_master'][0]]['ansible_host'] | default(groups['k3s_master'][0]) }}"
 systemd_dir: /etc/systemd/system
 extra_server_args: ""
 extra_agent_args: ""
 k3s_version: v1.20.2+k3s1
-ansible_user: cadmin # manager user
 master_on_manager_machine: 0 # 0: install kubectl on manager machine, 1: otherwise
-ansible_become_password: ''
 master_hostname: "{{ hostvars[groups['k3s_master'][0]]['ansible_hostname'] }}"
-
 
 # influxdb
 management_ip: "{{ hostvars[groups['management_services_host'][0]]['ansible_host'] | default(groups['management_services_host'][0]) }}"
