@@ -31,7 +31,7 @@ ansible-playbook build_k3s.yml -i inventory/cluster1/hosts.ini
 ansible-playbook build_management.yml -i inventory/cluster1/hosts.ini
 ```
 
-## Recursos disponibilidados pelo FOMA após a implantação
+## Recursos disponibilizados pelo FOMA após a implantação
 Após a implantação, você terá:
 - O cluster K3s instalado e configurado em todos os nós (`k3s_node`)
 - O kubectl instado e configurado para gerenciar o cluster remotamente, a partir da máquina `manager_machine`
