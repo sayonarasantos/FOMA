@@ -21,7 +21,7 @@ Antes de executar os playbooks, é necessário configurar as variáveis do inven
     - ansible_become_password: senha do usuário ansible de acesso
     - ansible_ssh_pass: senha da chave ssh
     - k3s_version: versão do K3s,
-    - master_on_manager_machine: parâmetro para confirmar a configuração de acesso remoto ao cluster K3s
+    - install_kubectl: parâmetro para confirmar a configuração de acesso remoto ao cluster K3s
     - influxdb_*: configurações do banco de dados
 
 ## Execução dos playbooks
@@ -35,10 +35,10 @@ ansible-playbook build_management.yml -i inventory/cluster1/hosts.ini
 Após a implantação, você terá:
 - O cluster K3s instalado e configurado em todos os nós (`k3s_node`)
 - O kubectl instado e configurado para gerenciar o cluster remotamente, a partir da máquina `manager_machine`
-- O InfluxDB instalado e configurado com dois usuário (um administrador e outro para o Telegraf) na máquina `management_services_host`
+- O InfluxDB instalado e configurado com dois usuário (um administrador e outro para o Telegraf) na máquina `monitoring_service`
 - O banco de dados do Telegraf criado no InfluxDB
 - O Telegraf instalado nos nós e configurado com as informações do banco
-- o Grafana instalado na máquina `management_services_host` e disponível em http://<ip da management_services_host>:3000
+- o Grafana instalado na máquina `monitoring_service` e disponível em http://<ip da monitoring_service>:3000
 
 ---
 

@@ -10,27 +10,27 @@
     - apt-transport-https
     - curl
     - gnupg2
-  when: master_on_manager_machine == 0
+  when: install_kubectl == 1
 
 - name: Add an apt signing key for Kubernetes
   apt_key:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     state: present
-  when: master_on_manager_machine == 0
+  when: install_kubectl == 1
 
 - name: Adding apt repository for Kubernetes
   apt_repository:
     repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
     state: present
     filename: kubernetes.list
-  when: master_on_manager_machine == 0
+  when: install_kubectl == 1
 
 - name: Install kubectl
   apt: 
     name: kubectl
     state: present
     update_cache: yes
-  when: master_on_manager_machine == 0
+  when: install_kubectl == 1
   register: install_kubectl
 
 - name: Create directory .kube
@@ -39,7 +39,7 @@
     state: directory
     owner: "{{ ansible_user }}"
     mode: "u=rwx,g=rx,o="
-  when: master_on_manager_machine == 0
+  when: install_kubectl == 1
 
 # - name: Copy config file from k3s_master to manager_machine
 #   synchronize:
@@ -47,7 +47,7 @@
 #     dest: ~{{ ansible_user }}/.kube/config
 #     mode: pull
 #   delegate_to: "{{ master_ip }}"
-#   when: master_on_manager_machine == 0
+#   when: install_kubectl == 1
 
 - name: Copy the file from manager
   copy:
@@ -56,11 +56,4 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0644
-  when: master_on_manager_machine == 0
-
-- name: Create manifest directory
-  file:
-    path: ~{{ ansible_user }}/k3s_manifests
-    state: directory
-    owner: "{{ ansible_user }}"
-    mode: "u=rwx,g=rx,o="
+  when: install_kubectl == 1

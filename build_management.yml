@@ -1,6 +1,6 @@
 ---
 
-- hosts: management_services_host
+- hosts: monitoring_service
   gather_facts: yes
   become: yes
   roles:

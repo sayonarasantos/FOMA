@@ -84,4 +84,4 @@
 #     src: ~{{ ansible_user }}/.kube/config
 #     dest: tmp/
 #     flat: yes
-#   when: master_on_manager_machine == 0
+#   when: install_kubectl == 1

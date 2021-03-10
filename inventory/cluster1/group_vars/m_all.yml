@@ -12,11 +12,11 @@ systemd_dir: /etc/systemd/system
 extra_server_args: ""
 extra_agent_args: ""
 k3s_version: v1.20.2+k3s1
-master_on_manager_machine: 0 # 0: install kubectl on manager machine, 1: otherwise
+install_kubectl: 1 # 1: install kubectl on manager machine, 0: don't install
 master_hostname: "{{ hostvars[groups['k3s_master'][0]]['ansible_hostname'] }}"
 
 # influxdb
-management_ip: "{{ hostvars[groups['management_services_host'][0]]['ansible_host'] | default(groups['management_services_host'][0]) }}"
+management_ip: "{{ hostvars[groups['monitoring_service'][0]]['ansible_host'] | default(groups['monitoring_service'][0]) }}"
 influxdb_port: 8086
 influxdb_admin_user: admin
 influxdb_admin_password: admin
