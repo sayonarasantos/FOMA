@@ -7,7 +7,6 @@
     - role: k3s_configuration/prereq
     - role: k3s_configuration/download
     - role: k3s_configuration/raspberrypi
-    - role: management_configuration/telegraf
 
 - hosts: k3s_master
   become: yes

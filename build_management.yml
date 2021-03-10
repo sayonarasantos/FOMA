@@ -1,20 +1,22 @@
 ---
 
-- hosts: k3s_master
+- hosts: management_services_host
   gather_facts: yes
   become: yes
   roles:
     - role: management_configuration/influxdb
+    - role: management_configuration/grafana
     - role: management_configuration/kubeconfig
+    - role: management_configuration/telegrafdb
 
 - hosts: manager_machine
   gather_facts: yes
   become: yes
   roles:
     - role: management_configuration/kubectl
-    - role: management_configuration/grafana # on k3s
 
-- hosts: k3s_master
+- hosts: k3s_cluster
+  gather_facts: yes
   become: yes
   roles:
-    - role: management_configuration/telegrafdb
+    - role: management_configuration/telegraf

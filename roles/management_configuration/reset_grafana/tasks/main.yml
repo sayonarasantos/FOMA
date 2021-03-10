@@ -1,0 +1,17 @@
+---
+
+- name: Remove Grafana
+  apt:
+    name: grafana
+    state: absent
+
+- name: Remove Grafana repository
+  apt_repository:
+    repo: "deb https://packages.grafana.com/enterprise/deb stable main"
+    filename: "influxdb"
+    state: absent
+
+- name: Remove the InfluxData repository key
+  apt_key:
+    id: 4E40DDF6D76E284A4A6780E48C8C34C524098CB6
+    state: absent

@@ -5,4 +5,3 @@
   become: yes
   roles:
     - role: k3s_configuration/reset
-    - role: management_configuration/reset_telegraf

@@ -1,18 +1,40 @@
 ---
 
-- name: Copy grafana.yaml to manager directory
-  copy:
-    src: k3s_manifests/grafana.yaml
-    dest: ~{{ ansible_user }}/k3s_manifests/
-    remote_src: no
-    owner: "{{ ansible_user }}"
-    mode: "u=rw,g=,o="
+# - name: Copy grafana.yaml to manager directory
+#   copy:
+#     src: k3s_manifests/grafana.yaml
+#     dest: ~{{ ansible_user }}/k3s_manifests/
+#     remote_src: no
+#     owner: "{{ ansible_user }}"
+#     mode: "u=rw,g=,o="
 
-- name: Wait until the file grafana.yaml is present before continuing
-  wait_for:
-    path: ~{{ ansible_user }}/k3s_manifests/grafana.yaml
+# - name: Wait until the file grafana.yaml is present before continuing
+#   wait_for:
+#     path: ~{{ ansible_user }}/k3s_manifests/grafana.yaml
 
-- name: Deploy Grafana in the k3s cluster
-  command: kubectl create -f ~{{ ansible_user }}/k3s_manifests/grafana.yaml
-  become: yes
-  become_user: "{{ ansible_user }}"
+# - name: Deploy Grafana in the k3s cluster
+#   command: kubectl create -f ~{{ ansible_user }}/k3s_manifests/grafana.yaml
+#   become: yes
+#   become_user: "{{ ansible_user }}"
+
+- name: Add Grafana repository key
+  apt_key:
+    url: https://packages.grafana.com/gpg.key
+    state: present
+
+- name: Add Grafana repository
+  apt_repository:
+    repo: "deb https://packages.grafana.com/enterprise/deb stable main"
+    filename: "influxdb"
+    state: present
+
+- name: Install Grafana
+  apt:
+    name: grafana
+    update_cache: yes
+
+- name: Start Grafana
+  service:
+    name: grafana-server
+    state: restarted
+    enabled: yes
