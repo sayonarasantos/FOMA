@@ -12,8 +12,9 @@ systemd_dir: /etc/systemd/system
 extra_server_args: ""
 extra_agent_args: ""
 k3s_version: v1.20.2+k3s1
-install_kubectl: 1 # 1: install kubectl on manager machine, 0: don't install
 master_hostname: "{{ hostvars[groups['k3s_master'][0]]['ansible_hostname'] }}"
+install_kubectl: 1 # 1: install kubectl on manager machine, 0: don't install
+master_noschedule: 1 # 1: disable workload for the master, 0: enable it
 
 # influxdb
 management_ip: "{{ hostvars[groups['monitoring_service'][0]]['ansible_host'] | default(groups['monitoring_service'][0]) }}"

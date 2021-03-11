@@ -81,3 +81,4 @@
 - name: Disable workload for the master
   command: kubectl taint nodes {{ master_hostname }} node-role.kubernetes.io/master=:NoSchedule
   become: yes
+  when: master_noschedule == 1
