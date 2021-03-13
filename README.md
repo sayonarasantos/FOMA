@@ -34,7 +34,7 @@ ansible-playbook build_management.yml -i inventory/cluster1/hosts.ini
 ## Recursos disponibilizados pelo FOMA após a implantação
 Após a implantação, você terá:
 - O cluster K3s instalado e configurado em todos os nós (`k3s_node`)
-- O kubectl instado e configurado para gerenciar o cluster remotamente, a partir da máquina `manager_machine`
+- O kubectl instalado e configurado para gerenciar o cluster remotamente, a partir da máquina `manager_machine`
 - O InfluxDB instalado e configurado com dois usuário (um administrador e outro para o Telegraf) na máquina `monitoring_service`
 - O banco de dados do Telegraf criado no InfluxDB
 - O Telegraf instalado nos nós e configurado com as informações do banco
