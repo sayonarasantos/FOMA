@@ -26,8 +26,9 @@ Antes de executar os playbooks, é necessário configurar as variáveis do inven
     - ansible_become_password: senha do usuário ansible de acesso;
     - ansible_ssh_pass: senha da chave ssh;
     - k3s_version: versão do K3s;
-    - install_kubectl: parâmetro para confirmar a configuração de acesso remoto ao cluster K3s;
-    - influxdb_*: configurações do banco de dados.
+    - install_kubectl: parâmetro para determinar a configuração de acesso remoto ao cluster K3s;
+    - master_noschedule: parâmetro para determinar a configuração não execução de pods na máquina do master;
+    - influxdb_*: configurações do banco de dados para o Telegraf que será criado no InfluxDB.
 
 ## Execução dos playbooks de implantação
 Feita a configuração das variáveis, pode-se executar os playbooks de construção do cluster K3s e implantação do TIG e do kubectl, respectivamente:
